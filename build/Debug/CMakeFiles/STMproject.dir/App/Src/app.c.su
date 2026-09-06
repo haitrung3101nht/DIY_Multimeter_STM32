@@ -1,0 +1,4 @@
+/home/trung/Documents/My_project/STMproject/App/Src/app.c:12:13:WriteDisplay	16	static
+/home/trung/Documents/My_project/STMproject/App/Src/app.c:16:13:StartDisplay	8	static
+/home/trung/Documents/My_project/STMproject/App/Src/app.c:20:6:App_Init	8	static
+/home/trung/Documents/My_project/STMproject/App/Src/app.c:28:6:App_Process	24	static

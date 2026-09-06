@@ -1,0 +1,3 @@
+/home/trung/Documents/My_project/STMproject/App/Src/clock_time.c:3:6:ClockTime_Init	16	static
+/home/trung/Documents/My_project/STMproject/App/Src/clock_time.c:8:6:ClockTime_Update	24	static
+/home/trung/Documents/My_project/STMproject/App/Src/clock_time.c:16:6:ClockTime_Format	32	static

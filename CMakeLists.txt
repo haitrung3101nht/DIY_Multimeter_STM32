@@ -44,18 +44,26 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
+    App/Src/app.c
+    App/Src/clock_time.c
+    BSP/Src/board_oled.c
+    Display/Src/ssd1306.c
+    Display/Src/clock_view.c
 )
+# Sửa: bỏ hai nguồn HAL I2C ở đây vì cmake/stm32cubemx đã thêm chúng.
+# Mỗi nguồn chỉ được biên dịch một lần, tránh lỗi multiple definition khi link.
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
+    App/Inc BSP/Inc Display/Inc
 )
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
 )
+# Sửa: bỏ định nghĩa HAL_I2C_MODULE_ENABLED thủ công trong CMake.
+# CubeMX đã bật module này trong Core/Inc/stm32f4xx_hal_conf.h.
 
 # Remove wrong libob.a library dependency when using cpp files
 list(REMOVE_ITEM CMAKE_C_IMPLICIT_LINK_LIBRARIES ob)
