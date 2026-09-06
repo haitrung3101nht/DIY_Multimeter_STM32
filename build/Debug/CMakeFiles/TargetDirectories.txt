@@ -1,0 +1,6 @@
+/home/trung/Documents/My_project/STMproject/build/Debug/CMakeFiles/STMproject.dir
+/home/trung/Documents/My_project/STMproject/build/Debug/CMakeFiles/edit_cache.dir
+/home/trung/Documents/My_project/STMproject/build/Debug/CMakeFiles/rebuild_cache.dir
+/home/trung/Documents/My_project/STMproject/build/Debug/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+/home/trung/Documents/My_project/STMproject/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+/home/trung/Documents/My_project/STMproject/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

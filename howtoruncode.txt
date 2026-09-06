@@ -1,0 +1,36 @@
+Build :
+
+cmake --preset Debug
+cmake --build --preset Debug
+
+Check : build/Debug/STMproject.elf 
+
+find build -type f -name '*.elf'
+
+Upload: 
+
+openocd \
+  -f interface/stlink.cfg \
+  -f target/stm32f4x.cfg \
+  -c "program build/Debug/STMproject.elf verify reset exit"
+
+
+
+
+Thứ tự thực hiện :
+
+1. Nối ST-LINK với STM32
+2. Cắm ST-LINK vào laptop
+3. Build code
+4. Chạy OpenOCD program
+5. STM32 reset và chạy code
+
+
+lệnh rút gọn:
+
+
+cmake --build --preset Debug && \
+openocd \
+  -f interface/stlink.cfg \
+  -f target/stm32f4x.cfg \
+  -c "program build/Debug/STMproject.elf verify reset exit"
