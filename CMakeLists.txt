@@ -44,19 +44,21 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    App/Src/app.c
-    App/Src/clock_time.c
-    BSP/Src/board_oled.c
-    Display/Src/ssd1306.c
-    Display/Src/clock_view.c
+    Core/Src/app.c
+    Core/Src/clock_time.c
+    Drivers/display/Src/board_oled.c
+    Drivers/display/Src/ssd1306.c
+    Drivers/display/Src/clock_view.c
 )
+# Sửa: chuyển app và clock_time vào Core/Src; toàn bộ OLED vào Drivers/display.
 # Sửa: bỏ hai nguồn HAL I2C ở đây vì cmake/stm32cubemx đã thêm chúng.
 # Mỗi nguồn chỉ được biên dịch một lần, tránh lỗi multiple definition khi link.
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    App/Inc BSP/Inc Display/Inc
+    Core/Inc Drivers/display/Inc
 )
+# Sửa: cập nhật đường dẫn header theo cấu trúc thư mục mới.
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE

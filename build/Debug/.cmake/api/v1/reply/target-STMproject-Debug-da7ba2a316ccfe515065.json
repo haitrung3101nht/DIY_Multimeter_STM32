@@ -39,7 +39,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 57,
+				"line" : 58,
 				"parent" : 0
 			},
 			{
@@ -81,15 +81,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/App/Inc"
+					"path" : "/home/trung/Documents/My_project/STMproject/Core/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/BSP/Inc"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/Display/Inc"
+					"path" : "/home/trung/Documents/My_project/STMproject/Drivers/display/Inc"
 				},
 				{
 					"backtrace" : 2,
@@ -163,15 +159,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/App/Inc"
+					"path" : "/home/trung/Documents/My_project/STMproject/Core/Inc"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/BSP/Inc"
-				},
-				{
-					"backtrace" : 3,
-					"path" : "/home/trung/Documents/My_project/STMproject/Display/Inc"
+					"path" : "/home/trung/Documents/My_project/STMproject/Drivers/display/Inc"
 				},
 				{
 					"backtrace" : 2,
@@ -339,31 +331,31 @@
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "App/Src/app.c",
+			"path" : "Core/Src/app.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "App/Src/clock_time.c",
+			"path" : "Core/Src/clock_time.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "BSP/Src/board_oled.c",
+			"path" : "Drivers/display/Src/board_oled.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "Display/Src/ssd1306.c",
+			"path" : "Drivers/display/Src/ssd1306.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "Display/Src/clock_view.c",
+			"path" : "Drivers/display/Src/clock_view.c",
 			"sourceGroupIndex" : 0
 		},
 		{

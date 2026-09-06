@@ -20,19 +20,45 @@ PB6/PB7 dùng I2C1, AF4, 100 kHz. Tham khảo bảng alternate function trong
 [datasheet STM32F411](https://www.st.com/resource/en/datasheet/stm32f411ce.pdf).
 Bus cần điện trở kéo lên 3V3: nếu module chưa có, thêm khoảng 4.7 kΩ
 cho mỗi đường SCL và SDA. Đấu theo nhãn chân trên module.
-Địa chỉ có thể đổi sang `0x3D` trong `BSP/Inc/board_oled.h`.
+Địa chỉ có thể đổi sang `0x3D` trong `Drivers/display/Inc/board_oled.h`.
+
+## Cấu trúc thư mục
+
+```text
+Core/
+  Inc/                    # Header hệ thống, app và clock_time
+  Src/                    # Code CubeMX, app và clock_time
+Drivers/
+  CMSIS/                  # Thư viện ARM hiện có
+  STM32F4xx_HAL_Driver/    # Thư viện ST hiện có
+  ads1220/                # Trống
+  display/
+    Inc/                  # board_oled.h, ssd1306.h, clock_view.h
+    Src/                  # board_oled.c, ssd1306.c, clock_view.c
+  buttons/                # Trống
+Measurement/
+  voltage/                # Trống
+  current/                # Trống
+  resistance/             # Trống
+  diode/                  # Trống
+  frequency/              # Trống
+  lcr/                    # Trống
+```
+
+Các module chưa triển khai được để trống, chưa thêm vào build.
+Git không lưu thư mục rỗng; các thư mục này hiện chỉ tồn tại trong workspace.
 
 ## Vai trò các file
 
 | File | Trách nhiệm |
 |---|---|
 | `Core/Src/main.c` | Khởi tạo HAL, clock, GPIO; gọi App_Init/App_Process |
-| `App/Src/app.c` | Điều phối thời gian, màn hình và thử lại khi lỗi |
-| `App/Src/clock_time.c` | Đếm thời gian, xử lý tràn tick, định dạng HH:MM:SS; không phụ thuộc HAL |
+| `Core/Src/app.c` | Điều phối thời gian, màn hình và thử lại khi lỗi |
+| `Core/Src/clock_time.c` | Đếm thời gian, xử lý tràn tick, định dạng HH:MM:SS; không phụ thuộc HAL |
 | `Core/Src/i2c.c` | CubeMX cấu hình chân GPIO, I2C1 và quản lý handle hi2c1 |
-| `BSP/Src/board_oled.c` | Kiểm tra OLED và truyền dữ liệu qua hi2c1 của CubeMX |
-| `Display/Src/ssd1306.c` | Lệnh SSD1306, framebuffer 512 byte, cập nhật màn hình |
-| `Display/Src/clock_view.c` | Font số, bố cục và vẽ giờ; không phụ thuộc HAL |
+| `Drivers/display/Src/board_oled.c` | Kiểm tra OLED và truyền dữ liệu qua hi2c1 của CubeMX |
+| `Drivers/display/Src/ssd1306.c` | Lệnh SSD1306, framebuffer 512 byte, cập nhật màn hình |
+| `Drivers/display/Src/clock_view.c` | Font số, bố cục và vẽ giờ; không phụ thuộc HAL |
 | `tests/test_clock.c` | Kiểm tra logic thời gian trên máy tính |
 
 Mỗi module có header tương ứng trong thư mục `Inc` cùng cấp.
@@ -56,7 +82,7 @@ ACK I2C thành công không đảm bảo module đúng loại hay hình đã hi�
 Kiểm tra logic trên máy tính:
 
 ```sh
-cc -std=c11 -Wall -Wextra -Werror -IApp/Inc tests/test_clock.c App/Src/clock_time.c -o /tmp/stm-clock-test
+cc -std=c11 -Wall -Wextra -Werror -ICore/Inc tests/test_clock.c Core/Src/clock_time.c -o /tmp/stm-clock-test
 /tmp/stm-clock-test
 ```
 
@@ -64,12 +90,12 @@ cc -std=c11 -Wall -Wextra -Werror -IApp/Inc tests/test_clock.c App/Src/clock_tim
 
 I2C1 được quản lý trong CubeMX (`STMproject.ioc`): PB6=SCL, PB7=SDA,
 100 kHz. `main.c` gọi `MX_I2C1_Init()` trước `App_Init()`.
-BSP dùng `hi2c1` từ `Core/Inc/i2c.h`, không tự cấu hình GPIO hoặc reset I2C.
-Khi thử lại màn hình, BSP kiểm tra trạng thái bus và ACK của OLED;
+Lớp board_oled dùng `hi2c1` từ `Core/Inc/i2c.h`, không tự cấu hình GPIO hoặc reset I2C.
+Khi thử lại màn hình, Lớp board_oled kiểm tra trạng thái bus và ACK của OLED;
 không thực hiện phục hồi bus bị giữ thấp bằng xung GPIO.
 
 CMake do CubeMX sinh quản lý nguồn HAL I2C; `stm32f4xx_hal_conf.h` bật module.
-CMake cấp cao chỉ thêm nguồn App/BSP/Display, tránh biên dịch HAL I2C trùng.
+CMake cấp cao chỉ thêm nguồn ứng dụng trong Core và nguồn Drivers/display, tránh biên dịch HAL I2C trùng.
 Các lời gọi App nằm trong USER CODE để được giữ khi sinh lại Core.
 Muốn đổi chân hoặc tốc độ I2C1, chỉnh trong CubeMX rồi sinh code lại.
 
