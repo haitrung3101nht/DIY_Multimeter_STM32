@@ -8,4 +8,5 @@ typedef struct {
 void ClockTime_Init(ClockTime *clock, uint32_t now);
 void ClockTime_Update(ClockTime *clock, uint32_t now);
 void ClockTime_Format(const ClockTime *clock, char text[9]);
+void Value_set(char text[9]);
 #endif

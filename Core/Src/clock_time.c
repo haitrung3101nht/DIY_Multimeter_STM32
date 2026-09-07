@@ -25,3 +25,19 @@ void ClockTime_Format(const ClockTime *clock, char text[9])
     text[6] = '0' + seconds / 10U; text[7] = '0' + seconds % 10U;
     text[8] = '\0';
 }
+
+void Value_set(char text[12])
+{
+    text[0] = 'H';
+    text[1] = 'e';
+    text[2] = 'l';
+    text[3] = 'l';
+    text[4] = 'o';
+    text[5] = ' ';
+    text[6] = 'W';
+    text[7] = 'o';
+    text[8] = 'r';
+    text[9] = 'l';
+    text[10] = 'd';
+    text[11] = '\0';
+}

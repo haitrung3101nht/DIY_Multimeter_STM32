@@ -8,7 +8,7 @@ static const uint8_t digits[10][5] = {
     {0x3C,0x4A,0x49,0x49,0x30}, {0x01,0x71,0x09,0x05,0x03},
     {0x36,0x49,0x49,0x49,0x36}, {0x06,0x49,0x49,0x29,0x1E}
 };
-bool ClockView_Show(const char text[9])
+bool ClockView_Show(const char text[12])
 {
     static const uint8_t colon[5] = {0,0x36,0x36,0,0};
     SSD1306_Clear();
@@ -24,5 +24,6 @@ bool ClockView_Show(const char text[9])
                         for (unsigned dy = 0; dy < 2; ++dy)
                             SSD1306_Pixel(17 + i * 12 + x * 2 + dx, 9 + y * 2 + dy);
     }
+    
     return SSD1306_Flush();
 }

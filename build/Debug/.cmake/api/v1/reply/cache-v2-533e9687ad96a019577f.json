@@ -1130,7 +1130,7 @@
 					"value" : "No help, variable specified on the command line."
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "UNINITIALIZED",
 			"value" : "/home/trung/Documents/My_project/STMproject/cmake/gcc-arm-none-eabi.cmake"
 		},
 		{

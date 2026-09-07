@@ -28,19 +28,21 @@ void App_Init(void)
 void App_Process(void)
 {
     uint32_t now = HAL_GetTick();
-    ClockTime_Update(&clock, now);
-    if (!ready && (uint32_t)(now - retry_tick) >= 1000U) {
-        ready = StartDisplay();
-        retry_tick = HAL_GetTick();
-        shown_seconds = UINT32_MAX;
-    }
-    if (ready && shown_seconds != clock.seconds) {
-        char text[9];
-        ClockTime_Format(&clock, text);
-        ready = ClockView_Show(text);
-        if (ready) shown_seconds = clock.seconds;
-        else retry_tick = HAL_GetTick();
-    }
+    Value_set(text);
+    // ClockTime_Update(&clock, now);
+    // if (!ready && (uint32_t)(now - retry_tick) >= 1000U) {
+    //     ready = StartDisplay();
+    //     retry_tick = HAL_GetTick();
+    //     shown_seconds = UINT32_MAX;
+    // }
+    // if (ready && shown_seconds != clock.seconds) {
+    //     char text[9];
+    //     // ClockTime_Format(&clock, text);
+    //     // ready = ClockView_Show(text);
+    //     ready = Value_set(text);
+    //     if (ready) shown_seconds = clock.seconds;
+    //     else retry_tick = HAL_GetTick();
+    // }
     /* Black Pill PC13 LED is active low: lit when OLED communication fails. */
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ready ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
