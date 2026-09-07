@@ -46,8 +46,8 @@
 },
 {
   "directory": "/home/trung/Documents/My_project/STMproject/build/Debug",
-  "command": "/usr/bin/arm-none-eabi-gcc -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER -I/home/trung/Documents/My_project/STMproject/Core/Inc -I/home/trung/Documents/My_project/STMproject/Drivers/display/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Core/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Include  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -fdata-sections -ffunction-sections -fstack-usage -O0 -g3 -std=gnu11 -o CMakeFiles/STMproject.dir/Core/Src/clock_time.c.obj -c /home/trung/Documents/My_project/STMproject/Core/Src/clock_time.c",
-  "file": "/home/trung/Documents/My_project/STMproject/Core/Src/clock_time.c"
+  "command": "/usr/bin/arm-none-eabi-gcc -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER -I/home/trung/Documents/My_project/STMproject/Core/Inc -I/home/trung/Documents/My_project/STMproject/Drivers/display/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Core/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Include  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -fdata-sections -ffunction-sections -fstack-usage -O0 -g3 -std=gnu11 -o CMakeFiles/STMproject.dir/Core/Src/led.c.obj -c /home/trung/Documents/My_project/STMproject/Core/Src/led.c",
+  "file": "/home/trung/Documents/My_project/STMproject/Core/Src/led.c"
 },
 {
   "directory": "/home/trung/Documents/My_project/STMproject/build/Debug",
@@ -58,11 +58,6 @@
   "directory": "/home/trung/Documents/My_project/STMproject/build/Debug",
   "command": "/usr/bin/arm-none-eabi-gcc -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER -I/home/trung/Documents/My_project/STMproject/Core/Inc -I/home/trung/Documents/My_project/STMproject/Drivers/display/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Core/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Include  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -fdata-sections -ffunction-sections -fstack-usage -O0 -g3 -std=gnu11 -o CMakeFiles/STMproject.dir/Drivers/display/Src/ssd1306.c.obj -c /home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c",
   "file": "/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c"
-},
-{
-  "directory": "/home/trung/Documents/My_project/STMproject/build/Debug",
-  "command": "/usr/bin/arm-none-eabi-gcc -DDEBUG -DSTM32F411xE -DUSE_HAL_DRIVER -I/home/trung/Documents/My_project/STMproject/Core/Inc -I/home/trung/Documents/My_project/STMproject/Drivers/display/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Core/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I/home/trung/Documents/My_project/STMproject/cmake/stm32cubemx/../../Drivers/CMSIS/Include  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -fdata-sections -ffunction-sections -fstack-usage -O0 -g3 -std=gnu11 -o CMakeFiles/STMproject.dir/Drivers/display/Src/clock_view.c.obj -c /home/trung/Documents/My_project/STMproject/Drivers/display/Src/clock_view.c",
-  "file": "/home/trung/Documents/My_project/STMproject/Drivers/display/Src/clock_view.c"
 },
 {
   "directory": "/home/trung/Documents/My_project/STMproject/build/Debug",

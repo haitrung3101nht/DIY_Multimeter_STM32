@@ -39,7 +39,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 58,
+				"line" : 54,
 				"parent" : 0
 			},
 			{
@@ -129,8 +129,7 @@
 				8,
 				9,
 				10,
-				11,
-				12
+				11
 			]
 		},
 		{
@@ -244,8 +243,7 @@
 				8,
 				9,
 				10,
-				11,
-				12
+				11
 			]
 		},
 		{
@@ -259,6 +257,7 @@
 			"name" : "Object Libraries",
 			"sourceIndexes" : 
 			[
+				12,
 				13,
 				14,
 				15,
@@ -273,8 +272,7 @@
 				24,
 				25,
 				26,
-				27,
-				28
+				27
 			]
 		}
 	],
@@ -337,7 +335,7 @@
 		{
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
-			"path" : "Core/Src/clock_time.c",
+			"path" : "Core/Src/led.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -350,12 +348,6 @@
 			"backtrace" : 4,
 			"compileGroupIndex" : 0,
 			"path" : "Drivers/display/Src/ssd1306.c",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 4,
-			"compileGroupIndex" : 0,
-			"path" : "Drivers/display/Src/clock_view.c",
 			"sourceGroupIndex" : 0
 		},
 		{

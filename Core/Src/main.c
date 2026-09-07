@@ -90,7 +90,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  App_Init();
+  app_init();
 
   /* USER CODE END 2 */
 
@@ -101,7 +101,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    App_Process();
+    app_process();
   }
   /* USER CODE END 3 */
 }
