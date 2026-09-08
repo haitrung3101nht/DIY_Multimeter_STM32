@@ -2,38 +2,31 @@
 #include "led.h"
 #include "main.h"
 
-#define LESSON_ON_OFF  1
-#define LESSON_TOGGLE  2
-#define LESSON_BUTTON  3
+static uint32_t last_toggle_tick;
 
-/* Change this value to select the exercise, then rebuild and flash. */
-#ifndef APP_LESSON
-#define APP_LESSON LESSON_TOGGLE
-#endif
+volatile uint32_t elapsed_ms;
+volatile uint8_t button_pressed;
 
 void app_init(void)
 {
     led_init();
+    last_toggle_tick = HAL_GetTick();
 }
 
 void app_process(void)
 {
-#if APP_LESSON == LESSON_ON_OFF
-    led_on();
-    HAL_Delay(500);
-    led_off();
-    HAL_Delay(500);
-#elif APP_LESSON == LESSON_TOGGLE
-    led_toggle();
-    HAL_Delay(500);
-#elif APP_LESSON == LESSON_BUTTON
-    /* Pull-up input: released = SET, pressed = RESET. */
-    if (HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin) == GPIO_PIN_RESET) {
-        led_on();
-    } else {
-        led_off();
+    uint32_t now = HAL_GetTick();
+
+    /* Đọc button mỗi vòng lặp: nhấn = 1, thả = 0. */
+    button_pressed =
+        (HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin)
+         == GPIO_PIN_RESET);
+
+    /* Tính thời gian từ lần toggle trước. */
+    elapsed_ms = now - last_toggle_tick;
+
+    if (elapsed_ms >= 500U) {
+        led_toggle();
+        last_toggle_tick = now;
     }
-#else
-#error "Invalid APP_LESSON"
-#endif
 }
