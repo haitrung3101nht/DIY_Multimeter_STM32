@@ -1,0 +1,3 @@
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/board_tft.c:5:6:Board_TFT_Init	8	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/board_tft.c:21:6:Board_TFT_Write	24	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/board_tft.c:31:6:Board_TFT_Delay	16	static

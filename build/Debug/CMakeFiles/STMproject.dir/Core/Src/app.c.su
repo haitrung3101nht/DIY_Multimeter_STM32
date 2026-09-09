@@ -1,2 +1,4 @@
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:10:6:app_init	8	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:16:6:app_process	16	static
+/home/trung/Documents/My_project/STMproject/Core/Src/app.c:21:13:display_status	48	static
+/home/trung/Documents/My_project/STMproject/Core/Src/app.c:31:13:display_init	24	static
+/home/trung/Documents/My_project/STMproject/Core/Src/app.c:51:6:app_init	8	static
+/home/trung/Documents/My_project/STMproject/Core/Src/app.c:60:6:app_process	16	static

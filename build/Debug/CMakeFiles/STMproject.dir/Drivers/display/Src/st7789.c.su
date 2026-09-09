@@ -1,0 +1,7 @@
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:6:13:command	16	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:11:6:ST7789_Init	24	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:36:13:window	40	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:46:6:ST7789_FillRect	168	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:68:6:ST7789_Fill	24	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:98:16:glyph_row	16	static
+/home/trung/Documents/My_project/STMproject/Drivers/display/Src/st7789.c:115:6:ST7789_Text	104	static

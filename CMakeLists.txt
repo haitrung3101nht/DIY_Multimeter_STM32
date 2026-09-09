@@ -48,6 +48,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/led.c
     Drivers/display/Src/board_oled.c
     Drivers/display/Src/ssd1306.c
+    Drivers/display/Src/board_tft.c
+    Drivers/display/Src/st7789.c
 )
 
 # Add include paths
