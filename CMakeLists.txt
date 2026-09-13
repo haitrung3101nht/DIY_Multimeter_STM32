@@ -50,11 +50,14 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Drivers/display/Src/ssd1306.c
     Drivers/display/Src/board_tft.c
     Drivers/display/Src/st7789.c
+    Drivers/display/Src/font5x7.c
+    Drivers/sensors/Src/board_dht20.c
+    Drivers/sensors/Src/dht20.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    Core/Inc Drivers/display/Inc
+    Core/Inc Drivers/display/Inc Drivers/sensors/Inc
 )
 
 # Add project symbols (macros)

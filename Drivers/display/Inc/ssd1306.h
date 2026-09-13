@@ -8,5 +8,8 @@ typedef bool (*SSD1306_Write)(uint8_t control, const uint8_t *data, uint16_t siz
 bool SSD1306_Init(SSD1306_Write write);
 void SSD1306_Clear(void);
 void SSD1306_Pixel(uint16_t x, uint16_t y);
+/* Opaque 6x8 cells in the framebuffer; call Flush to display changes.
+ * Clips at screen edges. Newline returns to the original x. Null is a no-op. */
+void SSD1306_Text(uint16_t x, uint16_t y, const char *text);
 bool SSD1306_Flush(void);
 #endif

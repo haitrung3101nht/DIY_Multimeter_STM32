@@ -1,0 +1,6 @@
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:10:13:read_status	16	static
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:21:13:recover_register	24	static
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:37:6:DHT20_Init	32	static
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:60:6:DHT20_Start	16	static
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:67:16:crc8	24	static
+/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/dht20.c:78:14:DHT20_ReadSample	32	static

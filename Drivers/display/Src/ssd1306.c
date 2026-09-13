@@ -1,5 +1,6 @@
 /* SSD1306 128x32 framebuffer and controller commands, independent of HAL. */
 #include "ssd1306.h"
+#include "font5x7.h"
 #include <string.h>
 static uint8_t buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8U];
 static SSD1306_Write transport;
@@ -21,6 +22,33 @@ void SSD1306_Pixel(uint16_t x, uint16_t y)
 {
     if (x < SSD1306_WIDTH && y < SSD1306_HEIGHT)
         buffer[x + (y / 8U) * SSD1306_WIDTH] |= (uint8_t)(1U << (y % 8U));
+}
+void SSD1306_Text(uint16_t x, uint16_t y, const char *text)
+{
+    if (!text || x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) return;
+    uint16_t cursor_x = x, cursor_y = y;
+    for (; *text; ++text) {
+        if (*text == '\n') {
+            cursor_x = x;
+            cursor_y += 8U;
+            if (cursor_y >= SSD1306_HEIGHT) break;
+            continue;
+        }
+        if (cursor_x >= SSD1306_WIDTH) continue;
+        for (unsigned row = 0; row < 8U && cursor_y + row < SSD1306_HEIGHT; ++row) {
+            uint8_t bits = Font5x7_Row((unsigned char)*text, row);
+            for (unsigned col = 0; col < 6U && cursor_x + col < SSD1306_WIDTH; ++col) {
+                unsigned py = cursor_y + row;
+                unsigned index = cursor_x + col + (py / 8U) * SSD1306_WIDTH;
+                uint8_t mask = (uint8_t)(1U << (py % 8U));
+                if (col < 5U && (bits & (16U >> col)))
+                    buffer[index] |= mask;
+                else
+                    buffer[index] &= (uint8_t)~mask;
+            }
+        }
+        cursor_x += 6U;
+    }
 }
 bool SSD1306_Flush(void)
 {

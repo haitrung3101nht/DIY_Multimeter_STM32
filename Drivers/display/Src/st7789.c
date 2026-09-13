@@ -1,4 +1,5 @@
 #include "st7789.h"
+#include "font5x7.h"
 
 static ST7789_Write transport;
 static bool ready;
@@ -70,52 +71,11 @@ bool ST7789_Fill(uint16_t color)
     return ST7789_FillRect(0, 0, ST7789_WIDTH, ST7789_HEIGHT, color);
 }
 
-/* Five bits per row, most significant visible bit at the left. */
-static const uint8_t letters[][7] = {
-    {14,17,17,31,17,17,17}, /* A */
-    {30,17,17,30,17,17,30}, {14,17,16,16,16,17,14},
-    {30,17,17,17,17,17,30}, {31,16,16,30,16,16,31},
-    {31,16,16,30,16,16,16}, {14,17,16,23,17,17,15},
-    {17,17,17,31,17,17,17}, {14,4,4,4,4,4,14},
-    {7,2,2,2,18,18,12}, {17,18,20,24,20,18,17},
-    {16,16,16,16,16,16,31}, {17,27,21,21,17,17,17},
-    {17,25,21,19,17,17,17}, {14,17,17,17,17,17,14},
-    {30,17,17,30,16,16,16}, {14,17,17,17,21,18,13},
-    {30,17,17,30,20,18,17}, {15,16,16,14,1,1,30},
-    {31,4,4,4,4,4,4}, {17,17,17,17,17,17,14},
-    {17,17,17,17,17,10,4}, {17,17,17,21,21,21,10},
-    {17,17,10,4,10,17,17}, {17,17,10,4,4,4,4},
-    {31,1,2,4,8,16,31} /* Z */
-};
-static const uint8_t digits[][7] = {
-    {14,17,19,21,25,17,14}, {4,12,4,4,4,4,14},
-    {14,17,1,2,4,8,31}, {30,1,1,14,1,1,30},
-    {2,6,10,18,31,2,2}, {31,16,16,30,1,1,30},
-    {14,16,16,30,17,17,14}, {31,1,2,4,8,8,8},
-    {14,17,17,14,17,17,14}, {14,17,17,15,1,1,14}
-};
-
-static uint8_t glyph_row(unsigned char c, unsigned row)
-{
-    static const uint8_t unknown[] = {14,17,1,2,4,0,4};
-    if (row >= 7) return 0;
-    if (c >= 'a' && c <= 'z') c -= 'a' - 'A';
-    if (c >= 'A' && c <= 'Z') return letters[c - 'A'][row];
-    if (c >= '0' && c <= '9') return digits[c - '0'][row];
-    switch (c) {
-    case ' ': return 0;
-    case ':': return (row == 2 || row == 5) ? 4 : 0;
-    case '-': return row == 3 ? 14 : 0;
-    case '.': return row == 6 ? 4 : 0;
-    case '!': return (row < 5 || row == 6) ? 4 : 0;
-    default: return unknown[row];
-    }
-}
 
 bool ST7789_Text(uint16_t x, uint16_t y, const char *text,
                  uint16_t foreground, uint16_t background, uint8_t scale)
 {
-    if (!ready || !text || scale < 1 || scale > 4) return false;
+    if (!ready || !text || scale < 1 || scale > 5) return false;
     if (x >= ST7789_WIDTH || y >= ST7789_HEIGHT) return true;
     uint32_t cursor_x = x, cursor_y = y;
     for (; *text; ++text) {
@@ -132,7 +92,7 @@ bool ST7789_Text(uint16_t x, uint16_t y, const char *text,
         if (!window(cursor_x, cursor_y, w, h)) return false;
         uint8_t pixels[48]; /* One scaled glyph row; no full-screen buffer. */
         for (unsigned row = 0; row < h; ++row) {
-            uint8_t bits = glyph_row((unsigned char)*text, row / scale);
+            uint8_t bits = Font5x7_Row((unsigned char)*text, row / scale);
             for (unsigned col = 0; col < w; ++col) {
                 unsigned bit = col / scale;
                 uint16_t color = (bit < 5 && (bits & (16U >> bit)))
