@@ -1,3 +1,0 @@
-/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/board_dht20.c:5:6:Board_DHT20_Write	24	static
-/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/board_dht20.c:12:6:Board_DHT20_Read	24	static
-/home/trung/Documents/My_project/STMproject/Drivers/sensors/Src/board_dht20.c:19:6:Board_DHT20_Delay	16	static

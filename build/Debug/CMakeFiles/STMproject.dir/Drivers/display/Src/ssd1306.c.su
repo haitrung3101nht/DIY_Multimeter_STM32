@@ -1,5 +1,0 @@
-/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c:7:6:SSD1306_Init	24	static
-/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c:20:6:SSD1306_Clear	8	static
-/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c:21:6:SSD1306_Pixel	16	static
-/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c:26:6:SSD1306_Text	48	static
-/home/trung/Documents/My_project/STMproject/Drivers/display/Src/ssd1306.c:53:6:SSD1306_Flush	16	static

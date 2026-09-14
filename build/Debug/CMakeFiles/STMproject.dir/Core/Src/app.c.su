@@ -1,6 +1,0 @@
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:71:13:sensor_error	4	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:80:13:sensor_process	24	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:117:13:display_status	104	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:144:13:display_init	16	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:166:6:app_init	8	static
-/home/trung/Documents/My_project/STMproject/Core/Src/app.c:180:6:app_process	16	static
