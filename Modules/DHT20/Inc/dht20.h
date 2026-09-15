@@ -16,10 +16,13 @@ typedef enum
     DHT20_ERROR_NOT_READY,
     DHT20_ERROR_TIMEOUT,
     DHT20_ERROR_CRC,
-    DHT20_ERROR_ARGUMENT
+    DHT20_ERROR_ARGUMENT,
+    DHT20_BUSY
 } DHT20_Status;
 
 DHT20_Status DHT20_Init(void);
-DHT20_Status DHT20_Read(DHT20_Data *data);
+DHT20_Status DHT20_CheckReady(void);
+DHT20_Status DHT20_StartMeasurement(void);
+DHT20_Status DHT20_ReadResult(DHT20_Data *data);
 
 #endif

@@ -32,10 +32,9 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 enable_language(C ASM)
 
 # Create an executable object type
-add_executable(${CMAKE_PROJECT_NAME}
-    Core/Src/include_file.c)
+add_executable(${CMAKE_PROJECT_NAME})
 
-    
+
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
 
@@ -47,14 +46,23 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add your module source files and include directories here.
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     App/Src/app.c
+    App/UI/Src/ui.c
+    App/UI/Src/screen_climate.c
+    App/UI/Src/screen_alphabet.c
+    App/UI/Src/screen_function3.c
+    App/UI/Src/screen_function4.c
     Modules/TFT/Src/tft.c
     Modules/DHT20/Src/dht20.c
+    Modules/keypad/Src/keypad.c
+
 )
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Inc
     App/Inc
+    App/UI/Inc
     Modules/TFT/Inc
     Modules/DHT20/Inc
+    Modules/keypad/Inc
 )
 
 # Add project symbols (macros)

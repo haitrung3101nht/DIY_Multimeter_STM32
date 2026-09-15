@@ -6,8 +6,7 @@
 #define TFT_HEIGHT  240U
 
 /*
- * Cặp cấu hình cho hướng hiển thị ban đầu:
- * MADCTL = 0x00, X offset = 0, Y offset = 80.
+ * Landscape 90 degrees: MADCTL = 0x60, offsets = 0.
  */
 #define TFT_X_OFFSET  0U
 #define TFT_Y_OFFSET  0U
@@ -28,7 +27,7 @@ static const uint8_t digit_font[10][7] = {
 
 static void TFT_Send(uint8_t *data, uint16_t size)
 {
-    if (HAL_SPI_Transmit(&hspi1, data, size, 1000) != HAL_OK)
+    if (HAL_SPI_Transmit(&hspi1, data, size, 5) != HAL_OK)
     {
         Error_Handler();
     }
@@ -243,4 +242,87 @@ void TFT_DrawString(uint16_t x, uint16_t y, const char *text,
         x += advance;
         text++;
     }
+}
+/* Fixed text fields: coalesce updates and transmit one scanline per call. */
+#include <string.h>
+#include "font_smooth.h"
+#define FIELD_COUNT 6U
+#define FIELD_CHARS 13U
+#define FONT_W 16U
+#define FONT_H 28U
+
+typedef struct {
+    char wanted[FIELD_CHARS + 1U];
+    char drawing[FIELD_CHARS + 1U];
+    uint16_t y, color, drawing_color;
+    uint8_t dirty;
+} TextField;
+static TextField fields[FIELD_COUNT];
+static int active_field = -1;
+static uint8_t scanline;
+static uint8_t next_field;
+
+void TFT_SetText(uint8_t id, uint16_t y, const char *text, uint16_t color)
+{
+    if (id >= FIELD_COUNT || y > TFT_HEIGHT - FONT_H || !text) return;
+    TextField *f = &fields[id];
+    char padded[FIELD_CHARS + 1U];
+    memset(padded, ' ', FIELD_CHARS);
+    padded[FIELD_CHARS] = '\0';
+    for (unsigned i = 0; i < FIELD_CHARS && text[i]; ++i)
+        padded[i] = text[i];
+    /* Field positions are fixed once queued; callers use a stable y per id. */
+    if (memcmp(padded, f->wanted, sizeof(padded)) == 0 && f->color == color)
+        return;
+    memcpy(f->wanted, padded, sizeof(padded));
+    f->y = y;
+    f->color = color;
+    f->dirty = 1;
+}
+
+void TFT_Process(void)
+{
+    if (active_field < 0) {
+        for (unsigned n = 0; n < FIELD_COUNT; ++n) {
+            unsigned i = (next_field + n) % FIELD_COUNT;
+            if (!fields[i].dirty) continue;
+            active_field = (int)i;
+            next_field = (uint8_t)((i + 1U) % FIELD_COUNT);
+            fields[i].dirty = 0;
+            memcpy(fields[i].drawing, fields[i].wanted, sizeof(fields[i].drawing));
+            fields[i].drawing_color = fields[i].color;
+            scanline = 0;
+            break;
+        }
+    }
+    if (active_field < 0) return;
+    TextField *f = &fields[active_field];
+    uint8_t pixels[FIELD_CHARS * FONT_W * 2U];
+    for (unsigned c = 0; c < FIELD_CHARS; ++c) {
+        unsigned char ch = (unsigned char)f->drawing[c];
+        if (ch < 32 || ch > 126) ch = '?';
+        for (unsigned x = 0; x < FONT_W; ++x) {
+            uint32_t a = smooth_font[ch - 32][scanline * FONT_W + x];
+            uint16_t fg = f->drawing_color;
+            /* Blend RGB565 foreground with black using glyph coverage. */
+            uint16_t p = (uint16_t)(((((fg >> 11) & 31U) * a + 127U) / 255U) << 11);
+            p |= (uint16_t)(((((fg >> 5) & 63U) * a + 127U) / 255U) << 5);
+            p |= (uint16_t)(((fg & 31U) * a + 127U) / 255U);
+            unsigned index = (c * FONT_W + x) * 2U;
+            pixels[index] = (uint8_t)(p >> 8);
+            pixels[index + 1U] = (uint8_t)p;
+        }
+    }
+    TFT_SetWindow(16, f->y + scanline, 16 + FIELD_CHARS * FONT_W - 1U, f->y + scanline);
+    TFT_Data(pixels, sizeof(pixels));
+    if (++scanline == FONT_H) active_field = -1;
+}
+
+void TFT_InvalidateText(void)
+{
+    active_field = -1;
+    scanline = 0;
+    next_field = 0;
+    for (unsigned i = 0; i < FIELD_COUNT; ++i)
+        fields[i].dirty = 1;
 }

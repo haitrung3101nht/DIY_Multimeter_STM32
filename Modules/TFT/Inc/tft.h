@@ -28,4 +28,11 @@ void TFT_DrawString(uint16_t x, uint16_t y, const char *text,
                     uint16_t color, uint16_t background,
                     uint8_t scale);
 
+/* Six fixed-position, black-background fields; ASCII, 13 characters each. */
+void TFT_SetText(uint8_t id, uint16_t y, const char *text, uint16_t color);
+/* Call every main-loop iteration; sends at most one 208-pixel row. */
+void TFT_Process(void);
+/* Cancel the in-flight field and repaint queued fields on a page switch. */
+void TFT_InvalidateText(void);
+
 #endif
