@@ -12,17 +12,14 @@
 
 ## Vẽ chữ mượt
 
-Dùng `TFT_SetText(id, y, text, color)` để cập nhật một trong 6 ô cố định.
-Mỗi ô chứa tối đa 13 ký tự ASCII, font 16x28 có làm mịn cạnh, nền đen.
-Giữ nguyên tọa độ y cho mỗi id, không cho các ô chồng nhau.
-Ứng dụng có bốn trang, chọn bằng 0/4/8/A. Xem UI/README.md để sửa
-và thêm chức năng. Những phím khác không có tác dụng điều hướng.
+Dùng `TFT_SetText(id, x, y, text, color)` hoặc `UI_Text` trong các màn hình.
+Có tối đa 16 thành phần chữ, bố trí tự do theo pixel, font 16x28 làm mịn,
+tối đa 31 ký tự mỗi thành phần (cắt ở cạnh màn hình). Cùng ID cập nhật hoặc
+di chuyển thành phần; vùng cũ được dựng lại. Xem UI/README.md.
 
-`TFT_Process()` chỉ gửi một dòng 208 pixel mỗi lần. Nội dung không đổi
-không gửi lại. Cập nhật đến khi đang vẽ được giữ cho lượt tiếp theo.
-Gửi màu nền và màu chữ cùng lúc, không xóa đen cả ô trước khi vẽ.
-Các hàm TFT_DrawString/FillRect cũ vẫn là hàm đồng bộ, không dùng trong
-đường xử lý định kỳ của app mới.
+`TFT_Process()` dựng lại và gửi một dòng 240 pixel bị thay đổi mỗi lần.
+Không gửi lại nội dung không đổi; xử lý được nhiều chữ trên cùng dòng,
+di chuyển, xóa, chồng chữ. Không dùng bộ đệm toàn màn hình.
 
 Font sinh sẵn trong flash; build firmware không cần Pillow. Muốn sinh lại:
 `python3 scripts/generate_tft_font.py` (cần Pillow và DejaVu Sans Mono).
@@ -31,7 +28,7 @@ Giấy phép font ở Modules/TFT/FONT_LICENSE.txt.
 ## Giới hạn và kiểm tra
 
 Độ phân giải vật lý vẫn là 240x240. Tăng tốc SPI không đồng nghĩa tăng
-refresh nội bộ của panel. Một dòng 416 byte mất tối thiểu 0.416 ms trên
+refresh nội bộ của panel. Một dòng 480 byte mất tối thiểu 0.480 ms trên
 bus 8 MHz; thời gian thực còn gồm render, lệnh và HAL. Đây là xử lý xen kẽ,
 không phải các luồng song song hay đảm bảo thời gian thực cứng. I2C/SPI
 vẫn là HAL polling có timeout; lỗi bus có thể làm trễ vài ms hoặc hơn do

@@ -3,27 +3,22 @@
 
 /* Add a screen here to register its navigation key. First entry is home. */
 static const UI_Screen * const screens[] = {
-    &screen_climate,
-    &screen_alphabet,
+    &screen_function0,
+    &screen_function1,
+    &screen_function2,
     &screen_function3,
-    &screen_function4,
+    // &screen_function4,
 };
 static const UI_Screen *current;
-static const uint16_t row_y[] = {8, 40, 80, 112, 152, 184};
-
-void UI_Row(uint8_t row, const char *text, uint16_t color)
+void UI_Text(uint8_t id, uint16_t x, uint16_t y, const char *text, uint16_t color)
 {
-    if (row < sizeof(row_y) / sizeof(row_y[0]))
-        TFT_SetText(row, row_y[row], text, color);
+    TFT_SetText(id, x, y, text, color);
 }
 
 static void UI_Open(const UI_Screen *screen, const UI_Model *model)
 {
     current = screen;
-    /* Cancel any old scanline job, then replace all six fields. */
-    TFT_InvalidateText();
-    for (uint8_t row = 0; row < 6; ++row)
-        UI_Row(row, "", TFT_WHITE);
+    TFT_ClearScene();
     current->render(model);
 }
 

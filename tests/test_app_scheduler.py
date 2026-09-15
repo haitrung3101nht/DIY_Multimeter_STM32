@@ -30,10 +30,10 @@ void Keypad_Init(void) {}
 char Keypad_GetKey(void) { scans++; char k=key; key=0; return k; }
 void TFT_Init(void) {}
 void TFT_Process(void) { rows++; }
-void TFT_InvalidateText(void) { page_switches++; }
-void TFT_SetText(uint8_t id, uint16_t y, const char *s, uint16_t c) {
-    (void)y; (void)c;
-    assert(id<6 && strlen(s)<=13);
+void TFT_ClearScene(void) { page_switches++; }
+void TFT_SetText(uint8_t id, uint16_t x, uint16_t y, const char *s, uint16_t c) {
+    (void)x; (void)y; (void)c;
+    assert(id<6 && strlen(s)<=31);
     snprintf(fields[id],sizeof(fields[id]),"%s",s);
 }
 DHT20_Status DHT20_CheckReady(void) { return mode==2 ? DHT20_ERROR_I2C : DHT20_OK; }
@@ -45,7 +45,7 @@ DHT20_Status DHT20_ReadResult(DHT20_Data *d) {
 }
 static void run(unsigned length) { for(unsigned i=0;i<length;i++){App_Process();tick++;} }
 int main(void) {
-    App_Init(); assert(strcmp(fields[0],"TEMPERATURE")==0);
+    App_Init(); assert(strcmp(fields[0],"STM32_Multimeter.")==0);
     run(20); key='4'; run(2);
     assert(strcmp(fields[0],"ALPHABET")==0 && reads==0); /* Key received during conversion. */
     run(1000);
@@ -55,7 +55,7 @@ int main(void) {
     key='B'; run(2); key='4'; run(2); assert(page_switches==switches);
     key='8'; run(2); assert(strcmp(fields[0],"FUNCTION 3")==0);
     key='A'; run(2); assert(strcmp(fields[0],"FUNCTION 4")==0);
-    key='0'; run(2); assert(strcmp(fields[1],"-11.5 C")==0);
+    key='0'; run(2); assert(strcmp(fields[2],"-11.5 *C")==0);
     mode=1; run(3200); assert(reads<40); /* Busy retries bounded; later cycle resumes. */
     unsigned old_scans=scans, old_starts=starts;
     mode=2; run(3000); assert(scans-old_scans>=1499 && starts==old_starts);

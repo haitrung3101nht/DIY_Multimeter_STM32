@@ -47,10 +47,11 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     App/Src/app.c
     App/UI/Src/ui.c
-    App/UI/Src/screen_climate.c
-    App/UI/Src/screen_alphabet.c
+    App/UI/Src/screen_function0.c
+    App/UI/Src/screen_function1.c
+    App/UI/Src/screen_function2.c
     App/UI/Src/screen_function3.c
-    App/UI/Src/screen_function4.c
+    # App/UI/Src/screen_function4.c
     Modules/TFT/Src/tft.c
     Modules/DHT20/Src/dht20.c
     Modules/keypad/Src/keypad.c

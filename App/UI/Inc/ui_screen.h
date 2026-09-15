@@ -6,9 +6,10 @@ typedef struct {
     char key;
     void (*render)(const UI_Model *model);
 } UI_Screen;
-void UI_Row(uint8_t row, const char *text, uint16_t color);
-extern const UI_Screen screen_climate;
-extern const UI_Screen screen_alphabet;
+void UI_Text(uint8_t id, uint16_t x, uint16_t y, const char *text, uint16_t color);
+extern const UI_Screen screen_function0;
+extern const UI_Screen screen_function1;
+extern const UI_Screen screen_function2;
 extern const UI_Screen screen_function3;
-extern const UI_Screen screen_function4;
+// extern const UI_Screen screen_function4;
 #endif

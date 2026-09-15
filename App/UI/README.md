@@ -19,12 +19,29 @@ UI_DataChanged chỉ gọi render của trang hiện tại. Vì vậy số đo m
 lỗi cảm biến không ghi đè lên bảng chữ cái. Trở về trang 0 sẽ thấy dữ liệu
 mới nhất, hoặc dấu gạch đỏ nếu lần đo gần nhất lỗi.
 
-Tất cả màn hình dùng cùng 6 hàng, tối đa 13 ký tự ASCII mỗi hàng, font
-16x28 và nền đen. UI_Row(row, text, color) nhận row từ 0 đến 5.
-Khi đổi trang, UI hủy job vẽ cũ và thay nội dung tất cả các hàng. TFT tiếp
-tục gửi từng dòng nhỏ qua TFT_Process(), không xóa toàn màn hình bằng
-hàm chặn. Trong lúc chuyển có thể thấy các hàng thay dần; không có cam
-kết đổi toàn trang đồng thời hay chống tearing phần cứng.
+Mọi thành phần chữ dùng tọa độ pixel (x, y), gốc (0, 0) ở trên trái.
+X tăng sang phải, Y tăng xuống dưới, màn hình 240x240 ở hướng xoay hiện tại.
+`UI_Text(id, x, y, text, color)` đặt hoặc cập nhật một thành phần.
+ID 0–15 là mã thành phần, không phải số hàng. Mỗi thành phần chứa tối đa
+31 ký tự ASCII, font 16x28; phần vượt cạnh phải/dưới được cắt.
+Ví dụ hai thành phần trên cùng một dòng:
+
+```c
+UI_Text(0, 8, 40, "TEMP", TFT_WHITE);
+UI_Text(1, 100, 40, "25.6 C", TFT_GREEN);
+```
+
+Dùng cùng ID và tọa độ mới để di chuyển. Truyền chuỗi rỗng hoặc gọi
+TFT_RemoveText(id) để xóa. Chữ có nền trong suốt trên nền cảnh đen;
+ID lớn hơn được vẽ trên ID nhỏ hơn khi chồng nhau. Bộ vẽ dựng lại cả dòng
+bị thay đổi nên tự xóa vùng cũ khi di chuyển/rút ngắn chữ và phục hồi chữ
+nằm dưới. Mỗi TFT_Process gửi tối đa một dòng 240 pixel (480 byte).
+
+Đổi trang gọi TFT_ClearScene rồi khai báo các thành phần của trang mới.
+Việc xóa/vẽ diễn ra từng dòng, không chặn cả trang và không đảm bảo đổi
+trang đồng thời. Không trộn hàm vẽ trực tiếp TFT_FillRect/DrawString cũ
+vào vùng do bộ quản lý cảnh sở hữu: dòng được dựng lại từ các thành phần
+chữ sẽ ghi đè nội dung vẽ trực tiếp.
 
 ## Sửa chức năng cũ
 
@@ -46,16 +63,15 @@ Font chưa hỗ trợ tiếng Việt có dấu; dùng nhãn ASCII trên màn hì
 static void render(const UI_Model *model)
 {
     (void)model;
-    UI_Row(0, "NEW FUNCTION", TFT_GREEN);
-    UI_Row(1, "YOUR CONTENT", TFT_WHITE);
-    UI_Row(5, "0:HOME", TFT_WHITE);
+    UI_Text(0, 8, 12, "NEW FUNCTION", TFT_GREEN);
+    UI_Text(1, 24, 80, "YOUR CONTENT", TFT_WHITE);
+    UI_Text(2, 8, 208, "0:HOME", TFT_WHITE);
 }
 const UI_Screen screen_example = {'1', render};
 ```
 
 Nếu vẫn chỉ muốn bốn nút, thay nội dung một trong bốn trang hiện có thay
-vì gán nút thứ năm. Màn mới có thể chỉ ghi các hàng cần dùng: bộ quản lý
-đã đưa các hàng khác về trống khi mở trang.
+vì gán nút thứ năm. Màn mới chỉ khai báo các thành phần cần dùng; cảnh cũ được xóa khi mở trang.
 
 Nếu chức năng mới có dữ liệu hoặc tính toán riêng, thêm dữ liệu vào
 UI_Model, chạy tác vụ ngắn trong app rồi gọi UI_DataChanged khi dữ liệu
